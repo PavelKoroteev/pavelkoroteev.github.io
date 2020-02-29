@@ -1,0 +1,84 @@
+.calculator {
+  display: grid;
+  grid-template: repeat(4, 60px) / repeat(4, 70px);
+}
+
+.number-buttons {
+  color: #3f3f3f;
+  background-color: #d8d8d8;
+}
+
+.action-buttons {
+  color: #e5d3d2;
+  background-color: #a66260;
+}
+
+.zero {
+  grid-row: -2 / span 1;
+  grid-column: 1 / span 3;
+}
+
+.one {
+  grid-row: -3 / span 1;
+  grid-column: 1 / span 1;
+}
+
+.two {
+  grid-row: -3 / span 1;
+  grid-column: 2 / span 1;
+}
+
+.three {
+  grid-row: -3 / span 1;
+  grid-column: 3 / span 1;
+}
+
+.four {
+  grid-row: -4 / span 1;
+  grid-column: 1 / span 1;
+}
+
+.five {
+  grid-row: -4 / span 1;
+  grid-column: 2 / span 1;
+}
+
+.six {
+  grid-row: -4 / span 1;
+  grid-column: 3 / span 1;
+}
+
+.seven {
+  grid-row: -5 / span 1;
+  grid-column: 1 / span 1;
+}
+
+.eight {
+  grid-row: -5 / span 1;
+  grid-column: 2 / span 1;
+}
+
+.nine {
+  grid-row: -5 / span 1;
+  grid-column: 3 /span 1;
+}
+
+.clear {
+  grid-row: -5 / span 1;
+  grid-column: 4 / span 1;
+}
+
+.minus {
+  grid-row: -4 / span 1;
+  grid-column: 4 / span 1;
+}
+
+.plus {
+  grid-row: -3 / span 1;
+  grid-column: 4 / span 1;
+}
+
+.result {
+  grid-row: -2 / span 1;
+  grid-column: 4 / span 1;
+}
