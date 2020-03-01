@@ -1,10 +1,10 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { VueComponent } from '../shims-vue';
+import Button from './Button';
 
 import styles from './Calculator.css?module'
 
 interface Props {
-  msg: string
 }
 
 @Component
@@ -29,10 +29,7 @@ export default class Calculator extends VueComponent<Props> {
     return String(this.result).split(/(?<=-)/).reverse().join('');
   }
 
-  onNumberClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-    const value = target.innerText.trim();
-
+  public handleChangeValue(value: string) {
     const buffer = this.$store.state.buffer;
     const lastNumberMatch = buffer.match(/\d+$/g);
 
@@ -43,51 +40,47 @@ export default class Calculator extends VueComponent<Props> {
     }
   }
 
-  replaceLastChar(string: string, char: string): string {
+  private replaceLastChar(string: string, char: string): string {
     return string.slice(0, -1) + char;
   }
 
-  onOperatorClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
+  private onOperatorClick(value: string) {
     const isLastCharNotDigit = /[^\d]$/.test(this.$store.state.buffer);
     if (isLastCharNotDigit) {
       return;
     }
-    this.$store.state.buffer += ` ${target.innerText.trim()} `;
+    this.$store.state.buffer += ` ${value} `;
   }
 
-  onClearClick(event: MouseEvent) {
+  private onClearClick(value: string) {
     this.$store.state.buffer = '0';
   }
 
-  onCalculateClick(event: MouseEvent) {
+  private onCalculateClick(event: MouseEvent) {
     this.$store.state.buffer = String(this.result);
   }
 
   render() {
     return (
       <div class={styles.calculator}>
-        {/* <h1>{ this.msg }</h1> */}
-
         <div class={[styles['number-display'], styles.buffer]}>{this.bufferRltToNormal}</div>
         <div class={[styles['number-display'], styles.result]}>{this.resultRtlToNormal}&nbsp;=</div>
 
-        <div onClick={this.onNumberClick} class={[styles['button'], styles['number-button'], styles.zero]}>0</div>
-        <div onClick={this.onNumberClick} class={[styles['button'], styles['number-button'], styles.one]}>1</div>
-        <div onClick={this.onNumberClick} class={[styles['button'], styles['number-button'], styles.two]}>2</div>
-        <div onClick={this.onNumberClick} class={[styles['button'], styles['number-button'], styles.three]}>3</div>
-        <div onClick={this.onNumberClick} class={[styles['button'], styles['number-button'], styles.four]}>4</div>
-        <div onClick={this.onNumberClick} class={[styles['button'], styles['number-button'], styles.five]}>5</div>
-        <div onClick={this.onNumberClick} class={[styles['button'], styles['number-button'], styles.six]}>6</div>
-        <div onClick={this.onNumberClick} class={[styles['button'], styles['number-button'], styles.seven]}>7</div>
-        <div onClick={this.onNumberClick} class={[styles['button'], styles['number-button'], styles.eight]}>8</div>
-        <div onClick={this.onNumberClick} class={[styles['button'], styles['number-button'], styles.nine]}>9</div>
+        <Button type="Number" value="0" classes={[styles.zero]} handleClick={this.handleChangeValue}></Button>
+        <Button type="Number" value="1" classes={[styles.one]} handleClick={this.handleChangeValue}></Button>
+        <Button type="Number" value="2" classes={[styles.two]} handleClick={this.handleChangeValue}></Button>
+        <Button type="Number" value="3" classes={[styles.three]} handleClick={this.handleChangeValue}></Button>
+        <Button type="Number" value="4" classes={[styles.four]} handleClick={this.handleChangeValue}></Button>
+        <Button type="Number" value="5" classes={[styles.five]} handleClick={this.handleChangeValue}></Button>
+        <Button type="Number" value="6" classes={[styles.six]} handleClick={this.handleChangeValue}></Button>
+        <Button type="Number" value="7" classes={[styles.seven]} handleClick={this.handleChangeValue}></Button>
+        <Button type="Number" value="8" classes={[styles.eight]} handleClick={this.handleChangeValue}></Button>
+        <Button type="Number" value="9" classes={[styles.nine]} handleClick={this.handleChangeValue}></Button>
 
-        <div onClick={this.onClearClick} class={[styles['button'], styles['action-button'], styles.clear]}>C</div>
-        <div onClick={this.onOperatorClick} class={[styles['button'], styles['action-button'], styles.minus]}>-</div>
-        <div onClick={this.onOperatorClick} class={[styles['button'], styles['action-button'], styles.plus]}>+</div>
-        <div onClick={this.onCalculateClick} class={[styles['button'], styles['action-button'], styles.calculate]}>=</div>
-
+        <Button type="Action" value="C" classes={[styles.clear]} handleClick={this.onClearClick}></Button>
+        <Button type="Action" value="-" classes={[styles.minus]} handleClick={this.onOperatorClick}></Button>
+        <Button type="Action" value="+" classes={[styles.plus]} handleClick={this.onOperatorClick}></Button>
+        <Button type="Action" value="=" classes={[styles.calculate]} handleClick={this.onCalculateClick}></Button>
       </div>
     )
   }

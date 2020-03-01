@@ -1,0 +1,16 @@
+.button {
+  user-select: none;
+  cursor: pointer;
+  margin: 0.5px;
+  line-height: var(--cell-height);
+}
+
+.number-button {
+  color: #3f3f3f;
+  background-color: #d8d8d8;
+}
+
+.action-button {
+  color: #e5d3d2;
+  background-color: #a66260;
+}

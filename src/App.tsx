@@ -8,7 +8,7 @@ export default class App extends Vue {
   render() {
     return (
       <div id="app">
-        <Calculator msg="Welcome to Your Vue.js + TypeScript App"/>
+        <Calculator/>
       </div>
     )
   }
