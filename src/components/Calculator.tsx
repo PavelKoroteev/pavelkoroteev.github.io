@@ -33,15 +33,33 @@ export default class Calculator extends VueComponent<Props> {
   }
 
   negativeNumberRltToNormal(number: string) {
-    return number.split(/(?<=-)(?=\d)/).reverse().join('');
+    return number[0] === '-' ? number.slice(1) + '-' : number;
   }
 
   get bufferRltToNormal() {
-    return this.$store.state.buffer
-      .split(/(?<=\d)(?=\s)|(?<=\s)(?=\d)/)
-      .reverse()
+    return this.reverseStringExceptNumbers(this.$store.state.buffer)
       .map(this.negativeNumberRltToNormal)
       .join('');
+  }
+
+  private reverseStringExceptNumbers(string: string): Array<string> {
+    const operators = string.split(/\s[+-]\s/);
+    const numbers = string.split(/\d+/);
+    const reversed = [];
+    let isNumber = true;
+    let index = 0;
+
+    while (operators.length || numbers.length) {
+      const current = isNumber ? numbers.shift() : operators.shift();
+
+      if (current) {
+        reversed[index] = current;
+      }
+      isNumber = !isNumber;
+      index++;
+    }
+
+    return reversed.reverse();
   }
 
   get resultRtlToNormal() {
