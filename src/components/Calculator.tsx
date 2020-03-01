@@ -12,9 +12,9 @@ export default class Calculator extends VueComponent<Props> {
   private isNeedCalculate = true;
   private isLoading = false;
 
-  calucateDecorator(fn: Function, isNeedCalculate: boolean) {
+  calucateDecorator(fn: Function) {
     return (...args: Array<any>) => {
-      this.isNeedCalculate = isNeedCalculate;
+      this.isNeedCalculate = true;
       return fn(...args);
     }
   }
@@ -24,9 +24,6 @@ export default class Calculator extends VueComponent<Props> {
   }
 
   get result() {
-    if (this.isNeedCalculate) {
-      return '';
-    }
     return this.$store.state.result;
   }
 
@@ -49,6 +46,14 @@ export default class Calculator extends VueComponent<Props> {
 
   get resultRtlToNormal() {
     return this.negativeNumberRltToNormal(String(this.result));
+  }
+
+  get displayResult() {
+    if (this.isNeedCalculate) {
+      return '';
+    }
+
+    return `${this.resultRtlToNormal} =`;
   }
 
   public handleChangeValue(value: string) {
@@ -109,26 +114,27 @@ export default class Calculator extends VueComponent<Props> {
     if (this.isLoading) {
       mainStyles.push(styles.calculator_loading);
     }
+
     return (
       <div class={mainStyles}>
         <div class={[styles['number-display'], styles.buffer]}>{this.bufferRltToNormal}</div>
-        <div class={[styles['number-display'], styles.result]}>{this.resultRtlToNormal}&nbsp;=</div>
+        <div class={[styles['number-display'], styles.result]}>{this.displayResult}</div>
 
-        <Button type="Number" value="0" classes={[styles.zero]} handleClick={this.calucateDecorator(this.handleChangeValue, true)}></Button>
-        <Button type="Number" value="1" classes={[styles.one]} handleClick={this.calucateDecorator(this.handleChangeValue, true)}></Button>
-        <Button type="Number" value="2" classes={[styles.two]} handleClick={this.calucateDecorator(this.handleChangeValue, true)}></Button>
-        <Button type="Number" value="3" classes={[styles.three]} handleClick={this.calucateDecorator(this.handleChangeValue, true)}></Button>
-        <Button type="Number" value="4" classes={[styles.four]} handleClick={this.calucateDecorator(this.handleChangeValue, true)}></Button>
-        <Button type="Number" value="5" classes={[styles.five]} handleClick={this.calucateDecorator(this.handleChangeValue, true)}></Button>
-        <Button type="Number" value="6" classes={[styles.six]} handleClick={this.calucateDecorator(this.handleChangeValue, true)}></Button>
-        <Button type="Number" value="7" classes={[styles.seven]} handleClick={this.calucateDecorator(this.handleChangeValue, true)}></Button>
-        <Button type="Number" value="8" classes={[styles.eight]} handleClick={this.calucateDecorator(this.handleChangeValue, true)}></Button>
-        <Button type="Number" value="9" classes={[styles.nine]} handleClick={this.calucateDecorator(this.handleChangeValue, true)}></Button>
+        <Button type="Number" value="0" classes={[styles.zero]} handleClick={this.calucateDecorator(this.handleChangeValue)}></Button>
+        <Button type="Number" value="1" classes={[styles.one]} handleClick={this.calucateDecorator(this.handleChangeValue)}></Button>
+        <Button type="Number" value="2" classes={[styles.two]} handleClick={this.calucateDecorator(this.handleChangeValue)}></Button>
+        <Button type="Number" value="3" classes={[styles.three]} handleClick={this.calucateDecorator(this.handleChangeValue)}></Button>
+        <Button type="Number" value="4" classes={[styles.four]} handleClick={this.calucateDecorator(this.handleChangeValue)}></Button>
+        <Button type="Number" value="5" classes={[styles.five]} handleClick={this.calucateDecorator(this.handleChangeValue)}></Button>
+        <Button type="Number" value="6" classes={[styles.six]} handleClick={this.calucateDecorator(this.handleChangeValue)}></Button>
+        <Button type="Number" value="7" classes={[styles.seven]} handleClick={this.calucateDecorator(this.handleChangeValue)}></Button>
+        <Button type="Number" value="8" classes={[styles.eight]} handleClick={this.calucateDecorator(this.handleChangeValue)}></Button>
+        <Button type="Number" value="9" classes={[styles.nine]} handleClick={this.calucateDecorator(this.handleChangeValue)}></Button>
 
-        <Button type="Action" value="C" classes={[styles.clear]} handleClick={this.calucateDecorator(this.onClearClick, false)}></Button>
-        <Button type="Action" value="-" classes={[styles.minus]} handleClick={this.calucateDecorator(this.onOperatorClick, true)}></Button>
-        <Button type="Action" value="+" classes={[styles.plus]} handleClick={this.calucateDecorator(this.onOperatorClick, true)}></Button>
-        <Button type="Action" value="=" classes={[styles.calculate]} handleClick={this.calucateDecorator(this.onCalculateClick, true)}></Button>
+        <Button type="Action" value="C" classes={[styles.clear]} handleClick={this.calucateDecorator(this.onClearClick)}></Button>
+        <Button type="Action" value="-" classes={[styles.minus]} handleClick={this.calucateDecorator(this.onOperatorClick)}></Button>
+        <Button type="Action" value="+" classes={[styles.plus]} handleClick={this.calucateDecorator(this.onOperatorClick)}></Button>
+        <Button type="Action" value="=" classes={[styles.calculate]} handleClick={this.calucateDecorator(this.onCalculateClick)}></Button>
       </div>
     )
   }
