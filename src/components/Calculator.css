@@ -5,14 +5,23 @@
   --result-height: 40px;
 
   display: grid;
-  grid-template: 25px var(--buffer-height) var(--result-height) 25px repeat(4, var(--cell-height)) / repeat(4, var(--cell-width));
+  grid-template: 10px var(--buffer-height) var(--result-height) 12px repeat(4, var(--cell-height)) / repeat(4, var(--cell-width));
   background-color: #6c686e;
   padding: 1px;
   width: fit-content;
   margin: auto;
+  border-radius: 4px;
+  padding-bottom: 4px;
+  font-size: 23px;
+}
+
+.calculator_loading {
+  pointer-events: none;
+  opacity: 0.7;
 }
 
 .number-display {
+  padding: 0 18px;
   color: #fff;
   white-space: nowrap;
   direction: rtl;
