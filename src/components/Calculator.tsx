@@ -61,7 +61,7 @@ export default class Calculator extends VueComponent<Props> {
   }
 
   onCalculateClick(event: MouseEvent) {
-    console.log('calculate');
+    this.$store.state.buffer = String(this.result);
   }
 
   render() {
