@@ -1,5 +1,8 @@
 # vuetest
 
+## Demo
+https://pavelkoroteev.github.io/
+
 ## Project setup
 ```
 npm install
