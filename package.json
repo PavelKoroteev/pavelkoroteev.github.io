@@ -21,7 +21,7 @@
     "@vue/cli-plugin-babel": "~4.2.0",
     "@vue/cli-plugin-typescript": "~4.2.0",
     "@vue/cli-plugin-vuex": "~4.2.0",
-    "@vue/cli-service": "~4.2.0",
+    "@vue/cli-service": "~5.0.8",
     "stylelint": "^13.2.0",
     "stylelint-config-standard": "^20.0.0",
     "typescript": "~3.7.5",
